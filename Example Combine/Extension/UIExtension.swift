@@ -9,7 +9,21 @@ import Foundation
 import UIKit
 
 extension UIImageView {
+    func roundedCorners() {
+        self.backgroundColor = .blue
+        self.clipsToBounds = true
+        self.layoutIfNeeded()
+        self.layer.cornerRadius = self.frame.size.width / 2
+    }
+    
+    func roundedImage() {
+        self.roundedCorners()
+        self.layer.cornerRadius = bounds.height / 5
+    }
+    
     func loadImageFromURL(_ url: String) {
+        self.contentMode = .scaleToFill
+        
         guard let imageURL = URL(string: url) else { return }
 
         DispatchQueue.global().async {

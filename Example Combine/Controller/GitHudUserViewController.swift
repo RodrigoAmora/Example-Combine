@@ -41,7 +41,10 @@ class GitHudUserViewController: UIViewController {
     
     private func updateUI(with user: GitHudUser) {
         self.userNameLabel.text = user.login
+        
+        self.userAvatarImageView.roundedImage()
         self.userAvatarImageView.loadImageFromURL(user.avatar_url.absoluteString)
+        
         self.loading.isHidden = true
     }
     
