@@ -11,8 +11,8 @@ import Combine
 class GitHudUserService {
     private var cancellables: AnyCancellable?
     
-    func getGitHubUser(completion: @escaping(Result<GitHudUser, Error>) -> Void) {
-        let url = URL(string: "https://api.github.com/users/octocat")!
+    func getGitHubUser(userName: String, completion: @escaping(Result<GitHudUser, Error>) -> Void) {
+        let url = URL(string: "https://api.github.com/users/\(userName)")!
         
         
 //        let publihser = URLSession.shared.dataTaskPublisher(for: url)

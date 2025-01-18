@@ -8,16 +8,60 @@
 import UIKit
 
 class GitHudUserViewController: UIViewController {
-    let service = GitHudUserService()
     
+    // MARK: - IBOutlets
+    @IBOutlet weak var loading: UIActivityIndicatorView!
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var userAvatarImageView: UIImageView!
+    
+    // MARK: - Atributes
+    private let service = GitHudUserService()
+    
+    // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.fetchtGitHubUser()
+        self.initViews()
     }
-
-    private func fetchtGitHubUser() {
-        self.service.getGitHubUser{ [weak self] result in
+    
+    // MARK: - Methods
+    private func initViews() {
+        self.loading.isHidden = true
+        self.loading.color = .systemBlue
+        
+        self.userNameTextField.placeholder = "Enter Github user....";
+        
+        self.userNameLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        self.userNameLabel.textAlignment = .center
+        self.userNameLabel.text = ""
+        
+        self.sendButton.setTitle(String(localized: "Send"), for: .normal)
+    }
+    
+    private func updateUI(with user: GitHudUser) {
+        self.userNameLabel.text = user.login
+        self.userAvatarImageView.loadImageFromURL(user.avatar_url.absoluteString)
+        self.loading.isHidden = true
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: String(localized: "OK"), style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - IBActions
+    @IBAction private func fetchtGitHubUser() {
+        let userName = self.userNameTextField.text ?? ""
+        if userName.isEmpty {
+            self.showAlert(title: "", message: "Type a user name!")
+            return
+        }
+        
+        self.loading.isHidden = false
+        
+        self.service.getGitHubUser(userName: userName){ [weak self] result in
             switch result {
             case .success(let user):
                 self?.updateUI(with: user)
@@ -26,17 +70,5 @@ class GitHudUserViewController: UIViewController {
             }
         }
     }
-    private func updateUI(with user: GitHudUser) {
-        print(user.id)
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
