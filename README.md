@@ -1,4 +1,4 @@
-# Example-Combine
+# example-combine
 Description
 -----------
 Project of example using Combine.<br>
