@@ -30,12 +30,15 @@ class GitHudUserViewController: UIViewController {
         self.loading.isHidden = true
         self.loading.color = .systemBlue
         
+        self.userNameTextField.accessibilityIdentifier = "userNameTextField"
         self.userNameTextField.placeholder = "Enter Github user....";
         
+        self.userNameLabel.accessibilityIdentifier = "userNameLabel"
         self.userNameLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
         self.userNameLabel.textAlignment = .center
         self.userNameLabel.text = ""
         
+        self.sendButton.accessibilityIdentifier = "sendButton"
         self.sendButton.setTitle(String(localized: "Send"), for: .normal)
     }
     
