@@ -25,7 +25,7 @@ class GitHudUserViewController: XCTestCase {
     override func tearDownWithError() throws {}
         
     // MARK: - Test Methods
-    func testSearchCharacter() throws {
+    func testSearchGitHubUser() throws {
         let gitHubUserName = "RodrigoAmora"
         
         let userNameTextField = self.app.textFields["userNameTextField"]
