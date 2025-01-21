@@ -42,7 +42,7 @@ class GitHudUserViewController: UIViewController {
         self.sendButton.setTitle(String(localized: "Send"), for: .normal)
     }
     
-    private func updateUI(with user: GitHudUser) {
+    private func updateUI(with user: GitHubUser) {
         self.userNameLabel.text = user.login
         
         self.userAvatarImageView.roundedImage()

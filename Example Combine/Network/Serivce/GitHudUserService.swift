@@ -11,7 +11,7 @@ import Combine
 class GitHudUserService {
     private var cancellables: AnyCancellable?
     
-    func getGitHubUser(userName: String, completion: @escaping(Result<GitHudUser, Error>) -> Void) {
+    func getGitHubUser(userName: String, completion: @escaping(Result<GitHubUser, Error>) -> Void) {
         let url = URL(string: "https://api.github.com/users/\(userName)")!
         
         
@@ -23,7 +23,7 @@ class GitHudUserService {
         
         self.cancellables = URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: GitHudUser.self, decoder: JSONDecoder())
+            .decode(type: GitHubUser.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completionResult in
                 switch completionResult {
@@ -57,7 +57,7 @@ class GitHudUserService {
         
         let publisher = URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: GitHudUser.self, decoder: JSONDecoder())
+            .decode(type: GitHubUser.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completionResult in
                 switch completionResult {
