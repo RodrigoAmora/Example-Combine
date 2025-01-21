@@ -11,4 +11,7 @@ struct GitHubUser: Codable {
     let login: String
     let avatar_url: URL
     let id: Int
+    let followers: Int
+    let following: Int
+    let public_repos: Int
 }
