@@ -13,6 +13,9 @@ class GitHudUserViewController: UIViewController {
     @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var followersLabel: UILabel!
+    @IBOutlet weak var followingLabel: UILabel!
+    @IBOutlet weak var publicRepositoriesLabel: UILabel!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     
@@ -38,6 +41,16 @@ class GitHudUserViewController: UIViewController {
         self.userNameLabel.textAlignment = .center
         self.userNameLabel.text = ""
         
+        self.followersLabel.text = ""
+        self.followersLabel.textAlignment = .left
+        
+        self.followingLabel.text = ""
+        self.followingLabel.textAlignment = .right
+        
+        self.publicRepositoriesLabel.text = ""
+        self.publicRepositoriesLabel.textAlignment = .center
+        self.publicRepositoriesLabel.numberOfLines = 2
+        
         self.sendButton.accessibilityIdentifier = "sendButton"
         self.sendButton.setTitle(String(localized: "Send"), for: .normal)
     }
@@ -47,6 +60,11 @@ class GitHudUserViewController: UIViewController {
         
         self.userAvatarImageView.roundedImage()
         self.userAvatarImageView.loadImageFromURL(user.avatar_url.absoluteString)
+        
+        self.followersLabel.text = "Followers: \(user.followers)"
+        self.followingLabel.text = "Following: \(user.following)"
+        
+        self.publicRepositoriesLabel.text = "Public Repositories:\n \(user.public_repos)"
         
         self.loading.isHidden = true
     }
